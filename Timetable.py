@@ -1,3 +1,12 @@
 from Download_data import get_data
 
-print(get_data())
+data = str(get_data())
+
+if not data:
+    print("Can't connect with Page")
+    exit()
+
+
+data = data.split("title=")
+data = data[3:]
+print(data)
