@@ -1,4 +1,5 @@
 from Download_data import get_data
+from Convert_data import convert
 
 data = str(get_data())
 
@@ -12,4 +13,5 @@ if not data:
 
 data = data.split("title=")
 data = data[3:]
-print(data)
+
+convert(data)
