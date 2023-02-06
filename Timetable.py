@@ -7,6 +7,9 @@ if not data:
     exit()
 
 
+#with open("Timetable_download.txt", "w") as file:
+#    file.write(data)
+
 data = data.split("title=")
 data = data[3:]
 print(data)
