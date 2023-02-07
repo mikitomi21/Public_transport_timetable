@@ -8,7 +8,6 @@ def get_number_of_line(text):
 
 
 def get_route_of_line(text):
-
     # change the first element of list
     first_route = text[0]
     first_route = first_route.split(": ")
@@ -28,14 +27,27 @@ def get_route_of_line(text):
 
 
 def divide_list_on_two(route):
-    routes = route.split("\\r\\n\\r\\")
-    print(routes)
+    #print(route[int(len(route)/2)])
+
+
+    end_route = route[int(len(route)/2)]
+    for i in range(len(end_route)):
+        if not end_route[i] == '\r':
+            continue
+        route[int(len(route)/2)] = end_route[:i]
+        route.insert(int(len(route)/2), end_route[:i])
+        break
+
+    #return first and second route of this line
+    return route[:int(len(route)/2)], route[int(len(route)/2):]
+
 
 
 def add_routes_to_dictionary(dict, line, routes):
     #todo add to dictionary key[number_of_line]->value[route]
     #todo route is a string, change it to list and use divide_list_on_two funtion to divide it and save into dictionary
     pass
+    #print(routes)
 
 
 def convert(data):
@@ -47,5 +59,12 @@ def convert(data):
         number_of_line = get_number_of_line(line[0])
         #print(number_of_line)
         route_of_line = get_route_of_line(line)
+
+        a,b = divide_list_on_two(route_of_line)
+        print(b)
+        
         add_routes_to_dictionary(lines, number_of_line, route_of_line)
+
+        #add this to look up on one line
+        break
         #lines[number_of_line] =
