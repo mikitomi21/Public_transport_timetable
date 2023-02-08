@@ -27,11 +27,11 @@ def get_route_of_line(text):
 
 
 def divide_list_on_two(route):
-    # print(route[int(len(route)/2)])
-
     number_of_street = 0
+
     while not '\r' in route[number_of_street]:
         number_of_street += 1
+        # Situation that the route doesn't represent a route of line, but some extra information
         if number_of_street == len(route):
             return False, False
 
@@ -41,18 +41,21 @@ def divide_list_on_two(route):
         if not end_route[i] == '\r':
             continue
         route[number_of_street] = end_route[:i]
+        # Duplicate last street
         route.insert(number_of_street, end_route[:i])
         break
 
     # return first and second route of this line
-    first_route = route[:number_of_street+1]
+    number_of_street += 1
+    first_route = route[:number_of_street]
     second_route = route[number_of_street:]
+
     return first_route, second_route
 
 
 def add_routes_to_dictionary(dict, line, routes):
     first_route, second_route = divide_list_on_two(routes)
-    if first_route == False:
+    if not first_route:
         return dict
     list_of_routes = [first_route, second_route]
     dict[line] = list_of_routes

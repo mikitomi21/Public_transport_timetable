@@ -1,5 +1,7 @@
 from Download_data import get_data
 from Convert_data import convert
+from Search_line import search
+from Print_informations import print_lines
 
 data = str(get_data())
 
@@ -16,6 +18,7 @@ data = data[3:]
 
 data = convert(data)
 
-for line, routes in data.items():
-    for route in routes:
-        print(f"{line} : {route}\n")
+
+lines = {}
+lines = search(data, "Witosa", "Hallera")
+print_lines(lines)
