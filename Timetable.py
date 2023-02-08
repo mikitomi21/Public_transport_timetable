@@ -15,10 +15,9 @@ if not data:
 
 data = data.split("title=")
 data = data[3:]
-
 data = convert(data)
 
 
 lines = {}
-lines = search(data, "Witosa", "Hallera")
+lines = search(data, "Witosa", "Hallera", 1)
 print_lines(lines)
