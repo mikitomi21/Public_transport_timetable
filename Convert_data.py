@@ -15,10 +15,10 @@ def get_route_of_line(text):
     text[0] = street
 
     # change the last element of list
-    last_route = text[len(text)-1]
+    last_route = text[len(text) - 1]
     street = ""
     for i in range(len(last_route)):
-        if last_route[i]=='"':
+        if last_route[i] == '"':
             break
         street += last_route[i]
     text[len(text) - 1] = street
@@ -27,44 +27,47 @@ def get_route_of_line(text):
 
 
 def divide_list_on_two(route):
-    #print(route[int(len(route)/2)])
+    # print(route[int(len(route)/2)])
 
+    number_of_street = 0
+    while not '\r' in route[number_of_street]:
+        number_of_street += 1
+        if number_of_street == len(route):
+            return False, False
 
-    end_route = route[int(len(route)/2)]
+    end_route = route[number_of_street]
+
     for i in range(len(end_route)):
         if not end_route[i] == '\r':
             continue
-        route[int(len(route)/2)] = end_route[:i]
-        route.insert(int(len(route)/2), end_route[:i])
+        route[number_of_street] = end_route[:i]
+        route.insert(number_of_street, end_route[:i])
         break
 
-    #return first and second route of this line
-    return route[:int(len(route)/2)], route[int(len(route)/2):]
-
+    # return first and second route of this line
+    first_route = route[:number_of_street+1]
+    second_route = route[number_of_street:]
+    return first_route, second_route
 
 
 def add_routes_to_dictionary(dict, line, routes):
-    #todo add to dictionary key[number_of_line]->value[route]
-    #todo route is a string, change it to list and use divide_list_on_two funtion to divide it and save into dictionary
-    pass
-    #print(routes)
+    first_route, second_route = divide_list_on_two(routes)
+    if first_route == False:
+        return dict
+    list_of_routes = [first_route, second_route]
+    dict[line] = list_of_routes
+    return dict
 
 
 def convert(data):
     lines = {}
     for line in data:
-        #print(f"{line}\n")
-
+        # print(f"{line}\n")
         line = line.split(" - ")
         number_of_line = get_number_of_line(line[0])
-        #print(number_of_line)
+        # print(number_of_line)
         route_of_line = get_route_of_line(line)
 
-        a,b = divide_list_on_two(route_of_line)
-        print(b)
-        
-        add_routes_to_dictionary(lines, number_of_line, route_of_line)
+        lines = add_routes_to_dictionary(lines, number_of_line, route_of_line)
 
-        #add this to look up on one line
-        break
-        #lines[number_of_line] =
+    return lines

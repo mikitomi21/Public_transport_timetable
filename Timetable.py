@@ -14,4 +14,8 @@ if not data:
 data = data.split("title=")
 data = data[3:]
 
-convert(data)
+data = convert(data)
+
+for line, routes in data.items():
+    for route in routes:
+        print(f"{line} : {route}\n")
