@@ -1,5 +1,5 @@
 from Download_data import get_data
-from Convert_data import convert
+from Convert_data import convert, get_set
 from Search_line import search
 from Print_informations import print_lines
 
@@ -17,6 +17,7 @@ data = data.split("title=")
 data = data[3:]
 data = convert(data)
 
+#get_set(data)
 
 lines = {}
 lines = search(data, "Witosa", "Hallera", 1)

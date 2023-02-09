@@ -74,3 +74,12 @@ def convert(data):
         lines = add_routes_to_dictionary(lines, number_of_line, route_of_line)
 
     return lines
+
+def get_set(data):
+    set_of_streets = set()
+    for line in data:
+        for route in data[line]:
+            #print(route)
+            for street in range(len(route)):
+                set_of_streets.add(route[street])
+    print(set_of_streets)
